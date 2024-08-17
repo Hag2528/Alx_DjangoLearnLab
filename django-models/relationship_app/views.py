@@ -21,10 +21,6 @@ class LibraryDetailView(DetailView):
         library = self.get_object()  # Retrieve current library object
         context['books'] = library.books.all()  # Get books associated with this library
         return context
-
-
-
-
 def login_view(request):
     if request.method == 'POST':   
     login_form = AuthenticationForm(request, data=request.POST)
