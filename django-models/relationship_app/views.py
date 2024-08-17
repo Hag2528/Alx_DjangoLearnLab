@@ -17,3 +17,4 @@ def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['books'] = self.object.books.all()  # Get books related to the library
     return context
+
