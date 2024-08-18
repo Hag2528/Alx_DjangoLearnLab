@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
+from django.views.generic.detail import DetailView
 
 def list_books(request):
     books = Book.objects.all()  # Fetch all books from database
@@ -58,4 +59,3 @@ def register_view(request):
     return render(request, 'relationship_app/register.html', context)
 
 
-["", "from .models import Library"
