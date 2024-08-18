@@ -13,16 +13,23 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
-
-def Admin_view(request):
+from .models import UserProfile
+def admin_view(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')  # Redirect to login if not authenticated
-    if request.user.profile.role != 'ADMIN':
+    if not request.user.profile.role == 'admin':
         return render(request, 'unauthorized.html')  # Handle unauthorized access
     return render(request, 'admin_view.html', {'content': 'This is the Admin view'})
+def librarian_view(request):
+    # ... Same logic as admin_view ...
+    return render(request, 'librarian_view.html')
+
+def member_view(request):
+    # ... Same logic as admin_view ...
+    return render(request, 'member_view.html')
 
 @user_passes_test(lambda u: u.is_authenticated and u.profile.role == 'LIBRARIAN')
 def librarian_view(request):
