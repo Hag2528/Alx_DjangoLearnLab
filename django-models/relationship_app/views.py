@@ -17,7 +17,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from .models import UserProfile
-def admin_view(request):
+
+from django.contrib.auth.decorators import permission_required
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    # Logic for adding a book entry
+
+ @permission_required('relationship_app.can_change_book')
+ def edit_book(request, book_id):
+    # Logic for editing a book entry
+
+  @permission_required('relationship_app.can_delete_book')
+  def delete_book(request, book_id):
+    # Logic for deleting a book entry
+
+
+   def admin_view(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')  # Redirect to login if not authenticated
     if not request.user.profile.role == 'admin':
