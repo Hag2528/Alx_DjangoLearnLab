@@ -17,7 +17,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 
-def admin_view(request):
+def Admin(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')  # Redirect to login if not authenticated
     if request.user.profile.role != 'ADMIN':
