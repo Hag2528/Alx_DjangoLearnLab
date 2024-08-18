@@ -28,7 +28,7 @@ def admin_view(request):
     @user_passes_test(lambda user: user.profile.role.role == 'admin')
     def decorated_view(request):
         # Admin-specific content here
-        return render(request,'admin_view.html')
+        return render(request, 'relationship_app/admin_view.html')
 
     return decorated_view(request)
 
@@ -41,7 +41,7 @@ def librarian_view(request):
     @user_passes_test(lambda user: user.profile.role.role == 'librarian')
     def decorated_view(request):
         # Librarian-specific content here
-        return render(request,'librarian_view.html')
+        return render(request,'relationship_app/librarian_view.html')
 
     return decorated_view(request)
 
@@ -54,7 +54,7 @@ def member_view(request):
     @user_passes_test(lambda user: user.profile.role.role == 'member')
     def decorated_view(request):
         # Member-specific content here
-        return render(request,'member_view.html')
+        return render(request,'relationship_app/member_view.html')
 
     return decorated_view(request)
 
