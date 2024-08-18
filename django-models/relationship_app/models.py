@@ -15,23 +15,64 @@ class Book(models.Model):
 
 
 
+from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 class Role(models.Model):
+    """Model for predefined user roles."""
     ADMIN = 'admin'
-    LIBRARIAN ='librarian'
+    LIBRARIAN = 'librarian'
     MEMBER = 'member'
     ROLE_CHOICES = (
         (ADMIN, 'Admin'),
         (LIBRARIAN, 'Librarian'),
         (MEMBER, 'Member'),
     )
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, unique=True)
 
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default=MEMBER)
+    def __str__(self):
+        return self.role
+
+
 class UserProfile(models.Model):
+    """Model for user profiles with a one-to-one relationship with User."""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    role = models.CharField(max_length=10, choices=Role.choices,default=Role.MEMBER)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)   
+
+
+    def __str__(self):
+        return f"{self.user.username} ({self.role})"
+
+
+@receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """Automatically creates a UserProfile instance when a new User is registered."""
     if created:
         UserProfile.objects.create(user=instance)
+
+
+
+
+# class Role(models.Model):
+#     ADMIN = 'admin'
+#     LIBRARIAN ='librarian'
+#     MEMBER = 'member'
+#     ROLE_CHOICES = (
+#         (ADMIN, 'Admin'),
+#         (LIBRARIAN, 'Librarian'),
+#         (MEMBER, 'Member'),
+#     )
+
+#     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default=MEMBER)
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+#     role = models.CharField(max_length=10, choices=Role.choices,default=Role.MEMBER)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
 # signals.post_save.connect(create_user_profile, sender= User) 
 
 class Author(models.Model):
