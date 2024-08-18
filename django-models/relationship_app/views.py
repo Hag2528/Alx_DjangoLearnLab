@@ -10,7 +10,7 @@ from django.contrib.auth import login
 def list_books(request):
     books = Book.objects.all()  # Fetch all books from database
     context = {'books': books}  # Create context dictionary
-    return render(request, 'list_books.html', context)  # Render template
+    return render(request, 'relationship_app/list_books.html', context)  # Render template
 
 class LibraryDetailView(DetailView):
     model = Library  # Specify model for detail view
@@ -56,3 +56,5 @@ def register_view(request):
         register_form = UserCreationForm()
     context = {'register_form': register_form}
     return render(request, 'relationship_app/register.html', context)
+
+
