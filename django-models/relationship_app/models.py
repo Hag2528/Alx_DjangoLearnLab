@@ -2,6 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
 
+class Book(models.Model):
+    # Existing book model fields
+
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can Add Book"),
+            ("can_change_book", "Can Change Book"),
+            ("can_delete_book", "Can Delete Book"),
+        ]
+
+
+
+
 class Role(models.Model):
     ADMIN = 'admin'
     LIBRARIAN ='librarian'
