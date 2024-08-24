@@ -9,7 +9,7 @@ class CustomUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            date_of_birth=date_of_birth,   
+            date_of_birth=date_of_birth,
 
             profile_photo=profile_photo,
         )
@@ -30,9 +30,6 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    """
-    Custom user model with additional fields: date_of_birth and profile_photo.
-    """
     username = None  # Remove username field if not required
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField()
