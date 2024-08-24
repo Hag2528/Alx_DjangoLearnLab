@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser , BaseUserManager
-
+from django.contrib.auth.models import AbstractUser , BaseUserManager,PermissionsMixin
 # Create your models here.
 class Book(models.Model):
     title=models.CharField(max_length=200)
@@ -54,3 +53,33 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+
+class MyModel(PermissionsMixin, models.Model):
+    # Your model fields here (e.g., title, content)
+
+    # Custom permissions for MyModel
+    can_view = models.BooleanField(default=False, help_text="Can view instances of MyModel")
+    can_create = models.BooleanField(default=False, help_text="Can create new instances of MyModel")
+    can_edit = models.BooleanField(default=False, help_text="Can edit existing instances of MyModel")
+    can_delete = models.BooleanField(default=False, help_text="Can delete instances of MyModel")
+
+    class Meta:
+        permissions = [
+            ("view_mymodel", "Can view MyModel"),
+            ("create_mymodel", "Can create MyModel"),
+            ("edit_mymodel", "Can edit MyModel"),
+            ("delete_mymodel", "Can delete MyModel"),
+        ]
+
+    def has_view_permission(self, user):
+        """
+        Custom method to check if a user has view permission for this instance.
+        """
+        return user.has_perm('app_name.view_mymodel') or self.can_view
+
+    def has_create_permission(self, user):
+        """
+        Custom method to check if a user has create permission.
+        """
+        return user.has_perm('app_name.create_mymodel')
