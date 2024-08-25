@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-)x@j1^113a^!ui%ehu=ug86x!u$coinpbea@2zmu%7g5ka92&w
 DEBUG = False
 
 SECURE_SSL_REDIRECT = True
+
 SECURE_HSTS_SECONDS = 31536000  # One year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
