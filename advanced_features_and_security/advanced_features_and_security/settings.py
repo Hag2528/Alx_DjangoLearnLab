@@ -27,7 +27,42 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
+DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
+# Additional settings (if applicable):
+# For older versions of Django:
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+# For more granular control over cookie domains:
+SESSION_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+CSRF_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+
+# For cookie expiration times:
+SESSION_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
+CSRF_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
+
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000  # One year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'  
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 # Application definition
 
 
