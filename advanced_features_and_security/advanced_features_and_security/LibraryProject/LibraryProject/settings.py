@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)x@j1^113a^!ui%ehu=ug86x!u$coinpbea@2zmu%7g5ka92&w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
+SECURE_SSL_REDIRECT = True
 ALLOWED_HOSTS = [] #['your_domain.com', 'www.your_domain.com']  # Replace with your actual domain(s)
 
 # Security Settings for HTTPS
-SECURE_SSL_REDIRECT = True
+
 # Application definition
 
 INSTALLED_APPS = [
