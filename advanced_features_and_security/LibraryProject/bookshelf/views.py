@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect# Create your views here.
 from django.contrib.auth.decorators import permission_required, MyModel
-
+from .forms import ExampleForm
 
 @permission_required('app_name.view_mymodel', raise_exception=True)
 def view_mymodel(request, pk):
