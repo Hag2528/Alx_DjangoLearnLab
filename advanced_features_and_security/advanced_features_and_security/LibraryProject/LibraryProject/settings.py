@@ -24,6 +24,22 @@ SECURE_SSL_REDIRECT = True
 SECRET_KEY = 'django-insecure-)x@j1^113a^!ui%ehu=ug86x!u$coinpbea@2zmu%7g5ka92&w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Additional settings (if applicable):
+# For older versions of Django:
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+# For more granular control over cookie domains:
+SESSION_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+CSRF_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+
+# For cookie expiration times:
+SESSION_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
+CSRF_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
+
 
 SECURE_SSL_REDIRECT = True
 
