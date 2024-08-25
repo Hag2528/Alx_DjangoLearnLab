@@ -28,8 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = [] #['your_domain.com', 'www.your_domain.com']  # Replace with your actual domain(s)
 
 # Security Settings for HTTPS
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
-SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS # One year in seconds
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS policy
 SECURE_HSTS_PRELOAD = True  # Allow for preloading by browsers (optional)
 
