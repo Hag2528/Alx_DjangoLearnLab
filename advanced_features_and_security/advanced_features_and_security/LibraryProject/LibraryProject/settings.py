@@ -28,19 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = [] #['your_domain.com', 'www.your_domain.com']  # Replace with your actual domain(s)
 
 # Security Settings for HTTPS
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS # One year in seconds
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS policy
-SECURE_HSTS_PRELOAD = True  # Allow for preloading by browsers (optional)
-
-# Secure Cookies
-SESSION_COOKIE_SECURE = True  # Transmit session cookies only over HTTPS
-CSRF_COOKIE_SECURE = True  # Transmit CSRF cookies only over HTTPS
-
-# Secure Headers
-X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
-SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-sniffing
-SECURE_BROWSER_XSS_FILTER = True  # Enable browser's XSS filtering
-
+SECURE_SSL_REDIRECT = True
 # Application definition
 
 INSTALLED_APPS = [
