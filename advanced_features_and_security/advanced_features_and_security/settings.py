@@ -23,9 +23,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ycew5_3cc25d1b^9xyayt6=(9tsv$0t6+4p@xmrv1^wz#q2mqn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
+
+# Security Settings for HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS policy
+SECURE_HSTS_PRELOAD = True  # Allow for preloading by browsers (optional)
+
+# Secure Cookies
+SESSION_COOKIE_SECURE = True  # Transmit session cookies only over HTTPS
+CSRF_COOKIE_SECURE = True  # Transmit CSRF cookies only over HTTPS
+
+# Secure Headers
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser's XSS filtering
+
+
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -36,8 +53,8 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
 # For more granular control over cookie domains:
-SESSION_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
-CSRF_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+#SESSION_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+#CSRF_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
 
 # For cookie expiration times:
 SESSION_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
