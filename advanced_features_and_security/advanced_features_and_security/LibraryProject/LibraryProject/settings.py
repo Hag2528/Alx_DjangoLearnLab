@@ -23,44 +23,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-)x@j1^113a^!ui%ehu=ug86x!u$coinpbea@2zmu%7g5ka92&w'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+DEBUG = False
 
-# Additional settings (if applicable):
-# For older versions of Django:
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
+ALLOWED_HOSTS = [] #['your_domain.com', 'www.your_domain.com']  # Replace with your actual domain(s)
 
-# For more granular control over cookie domains:
-SESSION_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
-CSRF_COOKIE_DOMAIN = ".yourdomain.com"  # Replace with your domain
+# Security Settings for HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS policy
+SECURE_HSTS_PRELOAD = True  # Allow for preloading by browsers (optional)
 
-# For cookie expiration times:
-SESSION_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
-CSRF_COOKIE_AGE = 3600  # Set to desired expiration time in seconds
+# Secure Cookies
+SESSION_COOKIE_SECURE = True  # Transmit session cookies only over HTTPS
+CSRF_COOKIE_SECURE = True  # Transmit CSRF cookies only over HTTPS
 
-
-SECURE_SSL_REDIRECT = True
-
-SECURE_HSTS_SECONDS = 31536000  # One year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'  
-SECURE_CONTENT_TYPE_NOSNIFF = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-ALLOWED_HOSTS = []
+# Secure Headers
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser's XSS filtering
 
 # Application definition
 
