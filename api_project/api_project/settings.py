@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
-    'Book'
+    'rest_framework',
+    'Book',
+    'rest_framework.authtoken',
+]
+
+# ... other DRF settings
+
+DEFAULT_AUTHENTICATION_CLASSES = [
+    'rest_framework.authentication.TokenAuthentication',  # Add TokenAuthentication
 ]
 
 MIDDLEWARE = [
