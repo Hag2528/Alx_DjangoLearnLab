@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Book',
     'rest_framework.authtoken',
+    'rest_framework.permissions.IsAuthenticated',
 ]
 
 # ... other DRF settings
