@@ -18,5 +18,5 @@ from django.contrib import admin
 from django.urls import path, include  # Include for nested URL patterns
 urlpatterns = [
     path('api/', include('api.urls')),  # Include URLs from api/urls.py
-  path('admin/',admin.site.urls),
+    path('admin/',admin.site.urls),
 ]
