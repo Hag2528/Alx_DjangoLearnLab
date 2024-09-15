@@ -76,3 +76,19 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.author.username}
  on {self.post.title}"
+    
+from crispy_forms import forms
+
+from taggit.forms import TagWidget
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False)
+    # ... other fields
+
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False)
+    # ... other fields
+
+    widgets = {
+        'tags': TagWidget(),
+        # ... other widget mappings
+    }
