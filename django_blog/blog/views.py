@@ -146,7 +146,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import CommentForm
 
-def post_detail(request, post_id):
+def CommentCreateView(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
     if request.method == 'POST': 
@@ -171,11 +171,10 @@ def post_detail(request, post_id):
  context)
 
 @login_required
-def edit_comment(request, comment_id):
+def CommentUpdateView(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     if comment.author != request.user:
-        return redirect('post_detail',
- post_id=comment.post.id)
+        return redirect('post_detail', post_id=comment.post.id)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST, instance=comment)
         if comment_form.is_valid():
@@ -190,7 +189,7 @@ def edit_comment(request, comment_id):
     return render(request, 'blog/edit_comment.html', context)
 
 @login_required
-def delete_comment(request, comment_id):
+def CommentDeleteView(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     if comment.author != request.user:
         return redirect('post_detail', 
