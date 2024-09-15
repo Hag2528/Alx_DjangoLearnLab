@@ -89,7 +89,7 @@ def register(request):
   # Redirect to your blog's home page
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'templates/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -113,6 +113,10 @@ def search(request):
         posts = Post.objects.all()
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
 
+
+search_results.html
+
+
 from django.shortcuts import get_object_or_404
 from .models import Post, Tag
 from django.db import models
@@ -120,24 +124,6 @@ def tag_posts(request, tag_slug):
     tag = get_object_or_404(Tag, slug=tag_slug)
     posts = Post.objects.filter(tags__name=tag.name)
     return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})
-
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments') 
-
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return f"{self.author.username}
- on {self.post.title}"
-
 
 
 
