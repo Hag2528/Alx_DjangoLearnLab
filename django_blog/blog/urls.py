@@ -34,8 +34,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<int:post_id>/comments/new/', views.add_comment, name='add_comment'),
-    path('<int:comment_id>/edit/', views.edit_comment, name='edit_comment'),
-    path('<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
-
+    path('<int:post_id>/comments/new/', views.CommentCreateView, name='add_comment'),
+    path('<int:comment_id>/edit/', views.CommentUpdateView, name='edit_comment'),
+    path('<int:comment_id>/delete/', views.CommentDeleteView, name='delete_comment'),
 ]
+
