@@ -53,3 +53,7 @@ class PostForm(forms.ModelForm):
         if len(title) < 3:
             raise forms.ValidationError('Title must be at least 3 characters long.')
         return title 
+from .models import Comment  
+class CommentForm(forms.ModelForm):
+   class Meta: 
+     model = Comment
