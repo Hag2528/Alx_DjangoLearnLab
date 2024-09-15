@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Login</h1>
+<h1>Register</h1>
 
-<form method="POST" action="{% url 'login' %}">
+<form method="POST" action="{% url 'register' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>   
+    <button type="submit">Register</button>   
 
+</form>
 
 {% if form.errors %}
     <p>Please correct the errors below:</p>
