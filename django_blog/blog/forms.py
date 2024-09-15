@@ -7,6 +7,32 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+#1
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import User  # Import custom User model (if applicable)
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User  # Use custom User model (if applicable)
+        fields = ('username', 'email', 'password1', 'password2')
+
+# Add a crispy form helper (optional)
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Field
+
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.helper = FormHelper()
+    self.helper.layout = Layout(
+        'username',
+        'email',
+        'password1', 
+        'password2',
+        Submit('Register', 'primary'),
+    )
 #3
 from django import forms
 from .models import Post

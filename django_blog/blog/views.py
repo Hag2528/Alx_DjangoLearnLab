@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .forms import UserProfileForm  # Import your custom form
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from .forms import CustomUserCreationForm 
 User = get_user_model()
 
 def user_profile(request):
@@ -28,6 +30,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import  Post
 from .forms import PostForm 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from .forms import stomUserCreationForm 
 class PostListView(ListView):
     model = Post
     template_name = 'blog/templates/post_list.html'
@@ -66,3 +71,27 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+    
+ # Import your custom form
+
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
+  # Redirect to your blog's home page
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request
