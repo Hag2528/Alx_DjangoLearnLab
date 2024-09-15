@@ -115,8 +115,85 @@ def search(request):
 
 from django.shortcuts import get_object_or_404
 from .models import Post, Tag
-
+from django.db import models
 def tag_posts(request, tag_slug):
     tag = get_object_or_404(Tag, slug=tag_slug)
     posts = Post.objects.filter(tags__name=tag.name)
     return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments') 
+
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.author.username}
+ on {self.post.title}"
+
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Post, Comment
+from .forms import CommentForm
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    comments = post.comments.all()
+    if request.method == 'POST': 
+        if request.user.is_authenticated:
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
+                return redirect('post_detail', post_id=post.id)
+        else: 
+            comment_form = CommentForm()
+    else:
+        comment_form = CommentForm()
+    context = {
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form,
+    }
+    return render(request, 'blog/post_detail.html', 
+ context)
+
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return redirect('post_detail',
+ post_id=comment.post.id)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST, instance=comment)
+        if comment_form.is_valid():
+            comment_form.save()
+            return redirect('post_detail', post_id=comment.post.id)
+    else:
+        comment_form = CommentForm(instance=comment)
+    context = {
+        'comment': comment,
+        'comment_form': comment_form,
+    }
+    return render(request, 'blog/edit_comment.html', context)
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return redirect('post_detail', 
+ post_id=comment.post.id)
+    comment.delete()
+    return redirect('post_detail', post_id=comment.post.id)
