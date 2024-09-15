@@ -15,7 +15,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+    def __init__(self, *args, **kwargs):
 
+        user = kwargs.pop('user', None)
+        super(PostForm, self).__init__(*args, **kwargs)
+        if user:
+            self.instance.author = user
 
     def clean_title(self):
         title = self.cleaned_data['title']
