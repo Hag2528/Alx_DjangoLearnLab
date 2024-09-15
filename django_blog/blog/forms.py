@@ -62,4 +62,17 @@ class CommentForm(forms.ModelForm):
 from django import forms
 
 class TagWidget(forms.TextInput):
-    pass
+    from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field 
+
+
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False, label="Tags (separated by commas)")
+
+    def __init__(self, *args, **kwargs):
+        super(MyForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('tags', css_class='form-control'),  # Add CSS class for styling
+        )
