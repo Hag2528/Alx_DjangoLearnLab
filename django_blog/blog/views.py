@@ -95,3 +95,28 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request
+
+
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Post
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |   
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        )
+    else:
+        posts = Post.objects.all()
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+
+from django.shortcuts import get_object_or_404
+from .models import Post, Tag
+
+def tag_posts(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tags__name=tag.name)
+    return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})
