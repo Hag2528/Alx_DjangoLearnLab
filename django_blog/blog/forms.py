@@ -1,6 +1,31 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import EmailField
 from .views import User
+
+from django import forms
+from django.contrib.taggit.widgets import TagWidget
+
+
+from crispy_forms import forms
+
+from taggit.forms import TagWidget
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False)
+    # ... other fields
+
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False)
+    # ... other fields
+
+    widgets = {
+        'tags': TagWidget(),
+        # ... other widget mappings
+    }
+class MyForm(forms.Form):
+    tags = forms.CharField(required=False, widget=TagWidget())
+
+    # ... other fields in your form
+
 class CustomUserCreationForm(UserCreationForm):
     email = EmailField()
 
@@ -62,7 +87,8 @@ class CommentForm(forms.ModelForm):
 from django import forms
 
 class TagWidget(forms.TextInput):
-    from django import forms
+    pass
+from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field 
 

@@ -114,9 +114,6 @@ def search(request):
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
 
 
-search_results.html
-
-
 from django.shortcuts import get_object_or_404
 from .models import Post, Tag
 from django.db import models

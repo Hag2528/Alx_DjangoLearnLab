@@ -11,7 +11,7 @@ urlpatterns =[
     path("post/<int:pk>/delete/", "post/<int:pk>/update/", "post/new/")
 
  
-
+]
 from django.contrib.auth import views as auth_views
 
 # URL patterns (blog/urls.py)
@@ -21,7 +21,7 @@ urlpatterns = [
 
 ]
 
- ]
+ 
 urlpatterns = [
     path('', views.PostListView.as_view(), name='post_list'),
     path('<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
