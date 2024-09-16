@@ -31,6 +31,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.PostDeleteView.as_view(),name='post_delete'),
     path('search/', views.search, name='search'),
     path('tags/<slug:tag_name>/', views.tag_detail, name='tag_detail'),
+    path('',views.PostByTagListView.as_view(),name='Tag_view')
     # ... other URL patterns ...
 
 ]
