@@ -56,7 +56,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
-    template_name = 'blog/templates/post_update.html'
+    template_name = 'blog/templates/blog/post_update.html'
 
     def test_func(self):
         post = self.get_object()
@@ -64,7 +64,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'blog/templates/post_delete.html'
+    template_name = 'blog/templates/blog/post_delete.html'
 
     success_url = '/posts/'
 
@@ -89,7 +89,7 @@ def register(request):
   # Redirect to your blog's home page
     else:
         form = CustomUserCreationForm()
-    return render(request, 'templates/register.html', {'form': form})
+    return render(request, 'blog/templates/blog/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -111,7 +111,7 @@ def search(request):
         )
     else:
         posts = Post.objects.all()
-    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+    return render(request, 'blog/templates/blog/search_results.html', {'posts': posts, 'query': query})
 
 
 from django.shortcuts import get_object_or_404
