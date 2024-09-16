@@ -46,7 +46,8 @@ from . import views
 
 urlpatterns = [
     path('post/<int:post_id>/comments/new/', views.CommentCreateView, name='add_comment'),
-    path('comment<int:comment_id>/edit/', views.CommentUpdateView, name='edit_comment'),
+    path('comment<int:comment_id>/update/', views.CommentUpdateView, name='edit_comment'),
     path('comment/<int:comment_id>/delete/', views.CommentDeleteView, name='delete_comment'),
 ]
  
+# "comment/<int:pk>/update/", "post/<int:pk>/comments/new/", "comment/<int:pk>/delete/"]
