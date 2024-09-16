@@ -23,15 +23,15 @@ urlpatterns = [
 
  
 urlpatterns = [
-    path('', views.PostListView.as_view(), name='post_list'),
-    path('<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
-    path('new/', views.PostCreateView.as_view(), name='post_form'),
+    path('', views.PostListView.as_view(), name='list'),
+    path('<int:pk>/', views.PostDetailView.as_view(), name='detail'),
+    path('new/', views.PostCreateView.as_view(), name='create'),
 
-    path('<int:pk>/edit/', views.PostUpdateView.as_view(), name='post_edit'),
-    path('<int:pk>/delete/', views.PostDeleteView.as_view(),name='post_delete'),
+    path('<int:pk>/edit/', views.PostUpdateView.as_view(), name='update'),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(),name='delete'),
     path('search/', views.search, name='search'),
     path('tags/<slug:tag_name>/', views.tag_detail, name='tag_detail'),
-    path('',views.PostByTagListView.as_view(),name='Tag_view')
+    path('',views.PostByTagListView.as_view(),name='Tag_view'),
     # ... other URL patterns ...
 
 ]
