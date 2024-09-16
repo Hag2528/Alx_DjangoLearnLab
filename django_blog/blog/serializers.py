@@ -36,3 +36,16 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows':4, 'cols': 50}),
         }
+
+
+
+from django.contrib.auth.forms import UserCreationForm
+from django import forms,User # for additional fields
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)  # Add email field
+    # Add other fields as needed
+
+    class Meta:
+        model = User  # Replace with your custom user model if applicable
+        fields = ("username", "email", "password1", "password2")

@@ -11,6 +11,16 @@ urlpatterns =[
     path("post/<int:pk>/delete/", "post/<int:pk>/update/", "post/new/")
 
  
+
+from django.contrib.auth import views as auth_views
+
+# URL patterns (blog/urls.py)
+urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+]
+
  ]
 urlpatterns = [
     path('', views.PostListView.as_view(), name='post_list'),
@@ -38,4 +48,4 @@ urlpatterns = [
     path('comment<int:comment_id>/edit/', views.CommentUpdateView, name='edit_comment'),
     path('comment/<int:comment_id>/delete/', views.CommentDeleteView, name='delete_comment'),
 ]
- ["comment/<int:pk>/update/", "post/<int:pk>/comments/new/", "comment/<int:pk>/delete/"]
+ 
