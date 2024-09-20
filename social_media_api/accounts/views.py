@@ -57,21 +57,50 @@ class ProfileView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
     #task 2 week 15
-from .models import User
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+        # from .models import User
+        # from django.contrib.auth.decorators import login_required
+        # from django.shortcuts import get_object_or_404
+        # from django.http import HttpResponseRedirect
 
+        # @login_required
+        # def follow_user(request, user_id):
+        #   user_to_follow = get_object_or_404(User, pk=user_id)
+        #   request.user.following.add(user_to_follow)
+        #   # Success message or redirect
+        #   return HttpResponseRedirect('ghhhn')  # Replace with appropriate response
+
+        # @login_required
+        # def unfollow_user(request, user_id):
+        #   user_to_unfollow = get_object_or_404(User, pk=user_id)
+        #   request.user.following.remove(user_to_unfollow)
+        #   # Success message or redirect
+        #   return HttpResponseRedirect("ddd")  # Replace with appropriate response
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .models import User
 @login_required
 def follow_user(request, user_id):
   user_to_follow = get_object_or_404(User, pk=user_id)
-  request.user.following.add(user_to_follow)
-  # Success message or redirect
-  return HttpResponseRedirect('ghhhn')  # Replace with appropriate response
+  if user_to_follow != request.user:  # Prevent self-follow
+    request.user.follow(user_to_follow)
+  return redirect('profile', user_id=user_id)  # Redirect after follow
 
 @login_required
 def unfollow_user(request, user_id):
   user_to_unfollow = get_object_or_404(User, pk=user_id)
-  request.user.following.remove(user_to_unfollow)
-  # Success message or redirect
-  return HttpResponseRedirect("ddd")  # Replace with appropriate response
+  if user_to_unfollow != request.user:  # Prevent self-unfollow
+    request.user.unfollow(user_to_unfollow)
+  return redirect('profile', user_id=user_id)  # Redirect after unfollow
+
+
+
+from django.shortcuts import render
+from .models import Post, User
+
+def get_feed(request):
+  user = request.user
+  following = user.following.all()
+  posts = Post.objects.filter(author__in=following).order_by('-created_at')  # Get posts from followed users, order by creation date
+  return render(request, 'feed.html', context={'posts': posts})
