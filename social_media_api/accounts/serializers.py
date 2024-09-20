@@ -10,6 +10,5 @@ class UserSerializer(serializers.ModelSerializer):
 
 
         serializers.CharField() 
-        Token.objects.create, 
-        def  get_user_model():
-          User.objects.create_user
+        Token.objects.create
+        get_user_model().create_user
