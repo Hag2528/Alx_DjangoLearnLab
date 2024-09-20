@@ -21,7 +21,12 @@ from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
+class accountView(generics.GenericAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset=User.objects.all()
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -51,3 +56,22 @@ class ProfileView(APIView):
         user = request.user  # Access authenticated user from request
         serializer = UserSerializer(user)
         return Response(serializer.data)
+    #task 2 week 15
+from .models import User
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+
+@login_required
+def follow_user(request, user_id):
+  user_to_follow = get_object_or_404(User, pk=user_id)
+  request.user.following.add(user_to_follow)
+  # Success message or redirect
+  return HttpResponseRedirect('ghhhn')  # Replace with appropriate response
+
+@login_required
+def unfollow_user(request, user_id):
+  user_to_unfollow = get_object_or_404(User, pk=user_id)
+  request.user.following.remove(user_to_unfollow)
+  # Success message or redirect
+  return HttpResponseRedirect("ddd")  # Replace with appropriate response
