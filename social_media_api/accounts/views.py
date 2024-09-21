@@ -18,7 +18,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from .models import User
 from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer
 from rest_framework import generics
@@ -57,3 +57,18 @@ class ProfileView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
     
+  #Task 2 week 15
+
+from django.shortcuts import get_object_or_404
+# from django.contrib import JsonResponse
+from django.http import JsonResponse
+
+def follow_user(request, user_id):
+    user_to_follow = get_object_or_404(User, pk=user_id)
+    request.user.following.add(user_to_follow)
+    return JsonResponse({'message': 'Followed successfully'})
+
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(User, pk=user_id)
+    request.user.following.remove(user_to_unfollow)
+    return JsonResponse({'message': 'Unfollowed successfully'})

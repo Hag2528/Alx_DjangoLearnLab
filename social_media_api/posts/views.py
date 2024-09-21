@@ -45,6 +45,19 @@ class CommentViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError("Post ID is required.")
         return Post.objects.get(pk=pk)
 #task 2 week 15
+
+from django.shortcuts import get_object_or_404
+# from rest_framework.response import Response
+from django.http import JsonResponse
+
+
+def get_feed(request):
+    user = get_object_or_404(User, pk=request.user.id)
+    followed_users = user.following.all()
+    posts = Post.objects.filter(user__in=followed_users).order_by('-created_at')
+    serializer = PostSerializer(posts, many=True)
+    return JsonResponse(serializer.data)
+
 from django.shortcuts import get_object_or_404
 from accounts.models import User
 # posts/views.py

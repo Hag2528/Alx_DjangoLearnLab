@@ -16,28 +16,6 @@ class User(AbstractUser):
 from django.db import models
 
 class User(models.Model):
-  # Existing user fields (username, email etc.)
+    # Existing user fields (username, email, etc.)
+    following = models.ManyToManyField('self', symmetrical=False, blank=True)
 
-  following = models.ManyToManyField('self', symmetrical=False)
-from django.db import models
-
-class User(models.Model):
-  # Existing user fields (username, email, etc.)
-  following = models.ManyToManyField('self', symmetrical=False)
-
-  # Additional methods for managing follows (optional)
-
-  def follow(self, user):
-    self.following.add(user)
-
-  def unfollow(self, user):
-    self.following.remove(user)
-
-
-
-from django.db import models
-
-class Follow(models.Model):
- follower = models.ForeignKey('CustomUser', related_name='following', on_delete=models.CASCADE)
- following = models.ForeignKey('CustomUser', related_name='followers', on_delete=models.CASCADE)
- created_at = models.DateTimeField(auto_now_add=True)
