@@ -22,10 +22,10 @@ from .models import User
 from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 class accountView(generics.GenericAPIView):
-    permission_classes=[IsAuthenticated]
+    permission_classes=[permissions.IsAuthenticated]
     queryset=User.objects.all()
 class RegisterView(APIView):
     def post(self, request):
@@ -62,7 +62,7 @@ class ProfileView(APIView):
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from .models import User
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated 
 
 @login_required
 def follow_user(request, user_id):
