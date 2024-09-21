@@ -57,15 +57,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from notifications.models import Notification
 from .models import Post, Like
+from django.shortcuts import generics
 from django.contrib.contenttypes.models import ContentType
 @login_required
 def like_post(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = generics.get_object_or_404(Post, pk=pk)
 
     if Like.objects.filter(post=post, user=request.user).exists():
         messages.info(request, 'You already liked this post.')
     else:
-        like = Like.objects.create(post=post, user=request.user)
+        like = Like.objects.get_or_create(post=post, user=request.user)  
         # Generate notification for the post owner (optional)
         if post.user != request.user:
             Notification.objects.create(
@@ -83,7 +84,7 @@ def like_post(request, pk):
 def unlike_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     like = Like.objects.filter(post=post, user=request.user).first()
-
+    
     if like:
         like.delete()
         messages.success(request, 'Post unliked.')
