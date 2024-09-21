@@ -46,3 +46,48 @@ class CommentViewSet(viewsets.ModelViewSet):
         return Post.objects.get(pk=pk)
 #task 2 week 15
 
+
+
+
+
+#task3   week 15
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from notifications.models import Notification
+from .models import Post, Like
+from django.contrib.contenttypes.models import ContentType
+@login_required
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if Like.objects.filter(post=post, user=request.user).exists():
+        messages.info(request, 'You already liked this post.')
+    else:
+        like = Like.objects.create(post=post, user=request.user)
+        # Generate notification for the post owner (optional)
+        if post.user != request.user:
+            Notification.objects.create(
+                recipient=post.user,
+                actor=request.user,
+                verb='liked your post',
+                target_content_type=ContentType.objects.get_for_model(Post),
+                target_object_id=post.id
+            )
+        messages.success(request, 'Post liked!')
+
+    return redirect('post_detail', pk=post.pk)
+
+@login_required
+def unlike_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    like = Like.objects.filter(post=post, user=request.user).first()
+
+    if like:
+        like.delete()
+        messages.success(request, 'Post unliked.')
+    else:
+        messages.info(request, 'You did not like this post.')
+
+    return redirect('post_detail', pk=post.pk)
