@@ -58,14 +58,12 @@ class ProfileView(APIView):
         return Response(serializer.data)
     
   #Task 2 week 15
-from django.contrib.auth.decorators import login_required  # OR 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user_model
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from .models import User
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.permissions import IsAuthenticated
+
 @login_required
 def follow_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -78,17 +76,17 @@ def unfollow_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     request.user.following.remove(user)
     return redirect('user_profile', user.username)
-@login_required  # OR use a LoginRequiredMixin for class-based views
-def my_view(request):
-    # Your view logic using CustomUser.objects.all() or similar
-    users = get_user_model().objects.all()  # Assuming CustomUser inherits from AbstractBaseUser
-    # ... rest of your view logic
-    return render(request, 'user.html', {'users': users})
 
 
-class MyView(LoginRequiredMixin. View):  # Inherits from LoginRequiredMixin for authentication
-    # Your view logic using CustomUser.objects.all() or similar
-    def get(self, request):
-        users = get_user_model().objects.all()  # Assuming CustomUser inherits from AbstractBaseUser
-        # ... rest of your view logic
-        return render(request, 'your_template.html', {'users': users})
+
+class FollowView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        # Follow logic...
+        return Response(...)
+
+@login_required
+def follow_user(request, user_id):
+    # Follow logic...
+    return ...
