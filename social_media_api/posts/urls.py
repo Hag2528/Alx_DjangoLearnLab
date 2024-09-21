@@ -11,3 +11,7 @@ router.register('posts/(?P<pk>\d+)/comments', views.CommentViewSet, basename='co
 urlpatterns = [
     path('', include(router.urls)),
 ]
+urlpatterns = [
+  path('feed/', views.get_feed, name='feed'),
+  # ...
+]

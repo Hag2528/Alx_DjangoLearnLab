@@ -21,10 +21,6 @@ urlpatterns = [
 
 # posts/urls.py
 
-urlpatterns = [
-  path('feed/', views.get_feed, name='feed'),
-  # ...
-]
 
 
 
