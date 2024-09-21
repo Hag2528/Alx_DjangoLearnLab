@@ -58,17 +58,3 @@ class ProfileView(APIView):
         return Response(serializer.data)
     
   #Task 2 week 15
-
-from django.shortcuts import get_object_or_404
-# from django.contrib import JsonResponse
-from django.http import JsonResponse
-
-def follow_user(request, user_id):
-    user_to_follow = get_object_or_404(User, pk=user_id)
-    request.user.following.add(user_to_follow)
-    return JsonResponse({'message': 'Followed successfully'})
-
-def unfollow_user(request, user_id):
-    user_to_unfollow = get_object_or_404(User, pk=user_id)
-    request.user.following.remove(user_to_unfollow)
-    return JsonResponse({'message': 'Unfollowed successfully'})

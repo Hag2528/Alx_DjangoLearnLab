@@ -27,3 +27,15 @@ class Comment(models.Model):
     def __str__(self):
         return  f"Comment on {self.post.title}   
  by {self.author.username}"
+    
+
+   # task3 week15
+
+from django.db import models
+from django.contrib.auth.models import User
+class Post(models.Model):
+    # ... other fields ...
+    pass
+class Like(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
