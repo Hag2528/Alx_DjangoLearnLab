@@ -51,10 +51,11 @@ from django.shortcuts import render
 from .models import Post
 from accounts.models import User
 
+
 @login_required
 def get_feed(request):
-    followed_users = request.user.following.all()
-    posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
+    following_users = request.user.following.all()
+    posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
     context = {'posts': posts}
     return render(request, 'feed.html', context)
 
