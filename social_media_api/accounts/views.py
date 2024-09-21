@@ -26,7 +26,8 @@ from rest_framework import permissions
 
 class accountView(generics.GenericAPIView):
     permission_classes=[permissions.IsAuthenticated]
-    queryset=User.objects.all()
+    
+    queryset=CustomUser.objects.all() 
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -77,16 +78,3 @@ def unfollow_user(request, user_id):
     request.user.following.remove(user)
     return redirect('user_profile', user.username)
 
-
-
-class FollowView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, user_id):
-        # Follow logic...
-        return Response(...)
-
-@login_required
-def follow_user(request, user_id):
-    # Follow logic...
-    return ...
