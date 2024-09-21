@@ -104,3 +104,11 @@ def get_feed(request):
   following = user.following.all()
   posts = Post.objects.filter(author__in=following).order_by('-created_at')  # Get posts from followed users, order by creation date
   return render(request, 'feed.html', context={'posts': posts})
+
+
+
+
+from django.contrib.auth.models import Permission
+
+can_follow_permission = Permission.objects.get_or_create(codename='can_follow')
+can_unfollow_permission = Permission.objects.get_or_create(codename='can_unfollow')
