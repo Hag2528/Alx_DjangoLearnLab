@@ -66,7 +66,7 @@ def like_post(request, pk):
     if Like.objects.filter(post=post, user=request.user).exists():
         messages.info(request, 'You already liked this post.')
     else:
-        like = Like.objects.get_or_create(post=post, user=request.user)  
+        Like.objects.get_or_create(user=request.user, post=post)
         # Generate notification for the post owner (optional)
         if post.user != request.user:
             Notification.objects.create(
