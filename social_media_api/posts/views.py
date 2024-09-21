@@ -46,7 +46,17 @@ class CommentViewSet(viewsets.ModelViewSet):
         return Post.objects.get(pk=pk)
 #task 2 week 15
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Post
+from accounts.models import User
 
+@login_required
+def get_feed(request):
+    followed_users = request.user.following.all()
+    posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
+    context = {'posts': posts}
+    return render(request, 'feed.html', context)
 
 
 

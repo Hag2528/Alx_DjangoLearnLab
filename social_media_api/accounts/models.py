@@ -13,9 +13,14 @@ class User(AbstractUser):
         return self.username
     
 #task2 week 15
-from django.db import models
+# from django.db import models
 
-class User(models.Model):
-    # Existing user fields (username, email, etc.)
-    following = models.ManyToManyField('self', symmetrical=False, blank=True)
+# class User(models.Model):
+#     # Existing user fields (username, email, etc.)
+#     following = models.ManyToManyField('self', symmetrical=False, blank=True)
 
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    following = models.ManyToManyField('self', symmetrical=False, related_name='followers',blank=True)
+     #.. other user models type here

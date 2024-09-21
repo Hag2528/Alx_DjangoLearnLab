@@ -58,3 +58,20 @@ class ProfileView(APIView):
         return Response(serializer.data)
     
   #Task 2 week 15
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .models import User
+
+@login_required
+def follow_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if user != request.user:
+        request.user.following.add(user)
+    return redirect('user_profile', user.username)  # Replace with your profile view url
+
+@login_required
+def unfollow_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    request.user.following.remove(user)
+    return redirect('user_profile', user.username)

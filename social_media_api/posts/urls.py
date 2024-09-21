@@ -13,7 +13,11 @@ urlpatterns = [
     path('<int:pk>/like/', views.like_post, name='like_post'),
     path('<int:pk>/unlike/', views.unlike_post, name='unlike_post'),
 ]
+
+ #task 2 week 15
+from django.urls import path
+from . import views
+
 urlpatterns = [
-  path('feed/', views.get_feed, name='feed'),
-  # ...
+    path('feed/', views.get_feed, name='feed'),
 ]
