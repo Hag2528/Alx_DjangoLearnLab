@@ -20,7 +20,7 @@ def user_profile(request):
         else:
             form = UserProfileForm(instance=user)
         context = {'form': form}
-        return render(request, 'accounts/profile.html', context)
+        return render(request, 'blog/profile.html', context)
     else:
         return redirect('login')
   #3 

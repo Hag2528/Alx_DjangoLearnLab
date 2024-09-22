@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block title%}
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+{% endblock%}
+
+{%block title%%}
+    <h1>List of Items</h1>
+
+    {% if object_list %}
+        <ul>
+            {% for object in object_list %}
+                <li>
+                    <a href="{% url 'blog:detail' object.pk %}">{{ object }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items found.</p>
+    {% endif %}
+{%enblock%}
+    <script src="{% static 'static/scripts.js' %}"></script>
