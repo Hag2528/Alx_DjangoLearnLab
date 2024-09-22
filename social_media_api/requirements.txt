@@ -1,0 +1,2 @@
+# djangorestframework==3.8.1
+# django==3.8.1
